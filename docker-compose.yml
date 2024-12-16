@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:5432 # 例：APIのURLを指定
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: yourpassword
+      POSTGRES_USER: yourusername
+      POSTGRES_DB: yourdb
+    volumes:
+      - backend-data:/var/lib/postgresql/data
+
+volumes:
+  backend-data:
+
+
