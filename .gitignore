@@ -1,1 +1,13 @@
+# Node.js modules
+node_modules/
+# Build output
+.next/
+# Local env files
 .env
+.env.local
+# Logs
+*.log
+# MacOS, Linux, Windows system files
+.DS_Store
+Thumbs.db
+
