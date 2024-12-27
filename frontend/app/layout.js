@@ -1,20 +1,4 @@
-<<<<<<< HEAD
-export const metadata = {
-  title: 'MyExpenseManager',
-  description: 'Manage your expenses efficiently!',
-};
-
-export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
-}
-
-=======
-// frontend/app/layout.js
-import '../styles/globals.css';
+import '../styles/globals.css';import '../styles/globals.css';
 
 export const metadata = {
   title: 'MyExpenseManager',
@@ -34,4 +18,5 @@ export default function RootLayout({ children }) {
   );
 }
 
->>>>>>> kiban
+
+
