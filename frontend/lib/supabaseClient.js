@@ -1,10 +1,14 @@
-// frontend/lib/supabaseClient.js
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'http://localhost:54321'; // 正しいローカルの Supabase API URL
-const supabaseKey = 'your-anon-key'; // Supabase Studioで確認したanonキー
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL; // 修正
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY; // 修正
 
-const supabase = createClient(supabaseUrl, supabaseKey)
+console.log('Supabase URL:', supabaseUrl);
+console.log('Supabase Key:', supabaseKey);
 
-export default supabase
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error('Supabase URLまたはキーが環境変数に設定されていません。');
+}
 
+const supabase = createClient(supabaseUrl, supabaseKey);
+export default supabase;
