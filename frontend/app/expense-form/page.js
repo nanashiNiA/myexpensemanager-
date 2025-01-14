@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { createClient } from "@supabase/supabase-js";
+import Link from "next/link"; // ページ間リンクを追加
 
 // 環境変数から Supabase の URL とキーを取得
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -61,50 +62,101 @@ export default function ExpenseForm() {
 
   return (
     <div>
-      <h1>経費記録フォーム</h1>
-      <form onSubmit={handleSubmit}>
+      {/* リボンメニュー */}
+      <nav
+        style={{
+          backgroundColor: "#4CAF50", // 緑色
+          padding: "10px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          color: "white",
+        }}
+      >
+        <h1>経費管理システム</h1>
         <div>
-          <label>金額:</label>
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder="金額"
-          />
+          <Link href="/expense-form">
+            <button
+              style={{
+                backgroundColor: "white",
+                color: "#4CAF50",
+                border: "none",
+                padding: "8px 12px",
+                marginRight: "10px",
+                cursor: "pointer",
+                borderRadius: "4px",
+              }}
+            >
+              経費記録
+            </button>
+          </Link>
+          <Link href="/calendar">
+            <button
+              style={{
+                backgroundColor: "white",
+                color: "#4CAF50",
+                border: "none",
+                padding: "8px 12px",
+                cursor: "pointer",
+                borderRadius: "4px",
+              }}
+            >
+              カレンダー
+            </button>
+          </Link>
         </div>
-        <div>
-          <label>カテゴリ:</label>
-          <select value={category} onChange={(e) => setCategory(e.target.value)}>
-            <option value="">選択してください</option>
-            <option value="food">食費</option>
-            <option value="transport">交通費</option>
-            <option value="entertainment">娯楽費</option>
-            <option value="others">その他</option>
-          </select>
-        </div>
-        <div>
-          <label>日付:</label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </div>
-        <button type="submit">送信</button>
-      </form>
+      </nav>
 
-      {/* ステータスメッセージ */}
-      {statusMessage && <p>{statusMessage}</p>}
+      {/* 経費記録フォーム */}
+      <div style={{ padding: "20px" }}>
+        <h1>経費記録フォーム</h1>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>金額:</label>
+            <input
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              placeholder="金額"
+            />
+          </div>
+          <div>
+            <label>カテゴリ:</label>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="">選択してください</option>
+              <option value="food">食費</option>
+              <option value="transport">交通費</option>
+              <option value="entertainment">娯楽費</option>
+              <option value="others">その他</option>
+            </select>
+          </div>
+          <div>
+            <label>日付:</label>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </div>
+          <button type="submit">送信</button>
+        </form>
 
-      {/* 送信されたデータの表示 */}
-      <h2>記録されたデータ:</h2>
-      <ul>
-        {submittedData.map((data, index) => (
-          <li key={index}>
-            {`金額: ${data.amount}, カテゴリ: ${data.category}, 日付: ${data.date}`}
-          </li>
-        ))}
-      </ul>
+        {/* ステータスメッセージ */}
+        {statusMessage && <p>{statusMessage}</p>}
+
+        {/* 送信されたデータの表示 */}
+        <h2>記録されたデータ:</h2>
+        <ul>
+          {submittedData.map((data, index) => (
+            <li key={index}>
+              {`金額: ${data.amount}, カテゴリ: ${data.category}, 日付: ${data.date}`}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
